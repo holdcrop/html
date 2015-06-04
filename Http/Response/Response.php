@@ -49,9 +49,10 @@ class Response {
     }
 
     /**
-     * @param string $view
+     * @param   string  $view
+     * @param   array   $options
      */
-    public function setView($view) {
+    public function setView($view, array $options = array()) {
         // Start the output buffer
         ob_start();
 

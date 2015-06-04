@@ -15,7 +15,7 @@ class APIRequest {
     /**
      * @var string
      */
-    protected $_search_method = '';
+    protected $_search_method = 'search_sale';
 
     /**
      * @var array

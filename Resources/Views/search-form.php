@@ -56,7 +56,7 @@
 
                                 <form action="http://daft.dev/search" method="post" class="navbar-form navbar-left col-md-12" role="search">
                                     <div class="col-md-9 form-group">
-                                        <input id="search_term" type="text" class="form-control" placeholder="Search">
+                                        <input id="search_term" name="search_term" type="text" class="form-control" placeholder="Search">
                                     </div>
                                     <button type="submit" class="btn btn-default">Search</button>
                                 </form>
@@ -67,6 +67,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="search_results" class="row">
+        <?php
+            if(!empty($options) && array_key_exists('include', $options)) {
+
+                include($options['include']);
+            }
+        ?>
     </div>
 
     <footer>

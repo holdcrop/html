@@ -54,9 +54,9 @@ class Tokenizer {
      *
      * @param $_original_string
      */
-    public function __construct($_original_string) {
+    public function __construct($original_string) {
 
-        $this->_original_string = $_original_string;
+        $this->_original_string = $original_string;
 
         $this->_determineSearchType()
                 ->_determineArea()

@@ -17,15 +17,17 @@ class SearchController extends Controller {
     public function post(Request $request, Response $response) {
 
         // Tokenize the search term
-        $tokenizer = new Tokenizer($request->getInput('search-term'));
+        $tokenizer = new Tokenizer($request->getInput('search_term'));
 
         // Create a new API Request object
         $api_request = new APIRequest($tokenizer, $this->_config);
 
         $api_request->run();
 
+        $api_response = $api_request->getResponse();
+
         // Set the API response in our App Response object
-        $response->setBodyEncoded($api_request->getResponse());
+        $response->setView('search-form.php', array('include' => 'search-results.php', 'params' => $api_response));
 
         return $response;
     }
