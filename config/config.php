@@ -15,5 +15,13 @@ return array(
     // Headers
     'headers'           => array(
         'content-type'      => 'application/json'
+    ),
+    // Daft
+    'daft'              => array(
+        'api_key'           => '7a4783e30239df2f94befde667ebbb508c24abfb',
+        'soap_client'       => array(
+            'url'       => 'http://api.daft.ie/v2/wsdl.xml',
+            'features'  => SOAP_SINGLE_ELEMENT_ARRAYS
+        )
     )
 );

@@ -41,17 +41,9 @@ class ConfigManager implements \Iterator, \Countable, \ArrayAccess {
     /**
      * @return array
      */
-    public function getRateLimterConfig() {
+    public function getConfig() {
 
-        return $this->_config['rate_limiter'];
-    }
-
-    /**
-     * @return array
-     */
-    public function getSolrConfig() {
-
-        return $this->_config['solr'];
+        return (array) $this->_config;
     }
 
     /**
@@ -170,6 +162,6 @@ class ConfigManager implements \Iterator, \Countable, \ArrayAccess {
      */
     public function toArray() {
 
-        return (array) current($this->_config);
+        return (array)current($this->_config);
     }
 }

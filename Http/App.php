@@ -3,6 +3,7 @@
 namespace Http;
 
 use Config\ConfigManager;
+use Http\Middleware\Middleware as MiddlewareAbstract;
 use Http\Request\Request;
 use Http\Response\Response;
 
@@ -49,11 +50,10 @@ class App {
         );
 
         // Middleware
-        //$this->_middleware = array(
-        //    new Middleware\RequestMethod($this->_config),
-        //    new Middleware\ContentType($this->_config),
-        //    new Middleware\RateLimiter($this->_config)
-        //);
+        $this->_middleware['app'] = array(
+            new Middleware\RequestMethod($this->_config),
+            new Middleware\RateLimiter($this->_config)
+        );
 
         // Response
         $this->_response = new Response();
@@ -81,10 +81,11 @@ class App {
      */
     public function run() {
 
-        $this->_runMiddleware();
-
         // Check the route
         $route_details = $this->_determineRoute();
+
+        // Run the middleware
+        $this->_runMiddleware($route_details);
 
         // Create the controller
         $controller = 'Http\\Controllers\\' . $route_details['controller'];
@@ -99,12 +100,33 @@ class App {
 
     /**
      * Apply any middleware
+     *
+     * @param   array   $route
      */
-    private function _runMiddleware() {
+    private function _runMiddleware(array $route) {
 
-        foreach($this->_middleware as $middleware) {
+        // Apply the App middleware first
+        foreach($this->_middleware['app'] as $middleware) {
 
             $middleware->handle($this->_request);
+        }
+
+        // Now apply any middleware for the route
+        foreach($route['middleware'] as $middleware_alias) {
+
+            switch($middleware_alias) {
+                case 'content-type':
+                    $middleware = new Middleware\ContentType($this->_config);
+                    break;
+                default:
+                    $middleware = null;
+                    break;
+            }
+
+            if($middleware instanceof MiddlewareAbstract) {
+
+                $middleware->handle($this->_request);
+            }
         }
     }
 
