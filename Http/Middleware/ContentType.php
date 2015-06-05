@@ -3,7 +3,6 @@
 namespace Http\Middleware;
 
 use Exceptions\BadRequest;
-use Http\Middleware\Contract\MiddlewareContract;
 use Http\Request\Request;
 
 class ContentType extends Middleware {
