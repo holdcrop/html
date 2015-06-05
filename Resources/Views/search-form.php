@@ -56,7 +56,16 @@
 
                                 <form action="http://daft.dev/search" method="post" class="navbar-form navbar-left col-md-12" role="search">
                                     <div class="col-md-9 form-group">
-                                        <input id="search_term" name="search_term" type="text" class="form-control" placeholder="Search">
+                                        <?php
+
+                                            if(!empty($options['params']) && property_exists($options['params'], 'results')) {
+                                                $search_sentence = str_replace(' entered by', '', $options['params']->results->search_sentence);
+                                            }
+                                            else {
+                                                $search_sentence = '';
+                                            }
+                                        ?>
+                                        <input id="search_term" name="search_term" type="text" class="form-control" placeholder="Search" value="<?php echo $search_sentence; ?>">
                                     </div>
                                     <button type="submit" class="btn btn-default">Search</button>
                                 </form>

@@ -44,6 +44,7 @@ class APIRequest {
 
         // Set the parameters
         $this->_parameters['api_key'] = $config->offsetGet('daft')->offsetGet('api_key');
+        //$this->_parameters['area_type'] = 'area';
 
         // Add the parameters from the Tokenizer
         $this->_buildParameters($tokenizer);
@@ -111,6 +112,18 @@ class APIRequest {
         if($tokenizer->getMaxPrice()) {
 
             $this->_parameters['query']['max_price'] = $tokenizer->getMaxPrice();
+        }
+
+        // Set the counties
+        if(!empty($tokenizer->getCounties())) {
+
+            $this->_parameters['query']['counties'] = $tokenizer->getCounties();
+        }
+
+        // Set the areas
+        if(!empty($tokenizer->getAreas())) {
+
+            $this->_parameters['query']['areas'] = $tokenizer->getAreas();
         }
     }
 
